@@ -93,17 +93,6 @@ inline fun <reified T : ViewBinding> fragmentVBDelegate(
             }
             @Suppress("UNCHECKED_CAST")
             binding = inflateMethod.invoke(null, thisRef.layoutInflater) as T
-            //外部传进来的布局id
-            if (layoutIdRes > 0) {
-                //反射修改 Fragment 的 mContentLayoutId 字段，将布局 id 复制给它，当 Fragment 执行 onCreateView 时就会通过父类加载完布局
-                //相当于加载了两遍，绑定类加载了一遍，Fragment 类加载了一遍，这样做的的目的是不用在每个 Fragment 的 onCreateView 返回 根布局了
-                val clazz: Class<*> = thisRef.javaClass.superclass
-                // 获得指定类的属性
-                val mContentLayoutId: Field = clazz.getDeclaredField("mContentLayoutId")
-                mContentLayoutId.isAccessible = true
-                // 更改私有属性的值
-                mContentLayoutId.set(thisRef, layoutIdRes)
-            }
             return binding!!
         }
     }
