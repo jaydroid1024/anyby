@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_info"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textview_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Android"
+        android:textSize="44sp" />
+
+    <include
+        android:id="@+id/include_layout"
+        layout="@layout/layout_info" />
+
+
+    <!--  包含merge标签的布局不能通过id自动解析，需要手动bind-->
+    <include layout="@layout/layout_info_merge" />
+
+    <!--  包含 ViewStub 标签的布局不能通过id自动解析，需要手动bind-->
+    <ViewStub
+        android:id="@+id/layout_view_stub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout="@layout/layout_info_view_stub" />
+
+    <com.jay.vbhelper.normal_use_vb.CustomView
+        android:id="@+id/name1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00f"
+        android:orientation="vertical" />
+
+
+    <com.jay.vbhelper.delagate_use_vb.CustomViewWithDelegate
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#ff0"
+        android:orientation="vertical" />
+
+
+    <Button
+        android:id="@+id/button_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/previous"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_info"
+        app:layout_constraintVertical_weight="1" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+
+

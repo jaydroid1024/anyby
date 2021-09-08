@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#498750"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/first_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jay"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/second_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Droid"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+</LinearLayout>
