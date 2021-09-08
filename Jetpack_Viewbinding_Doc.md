@@ -1,8 +1,21 @@
 
 
-# ViewBinding 详解
+# Jetpack | ViewBinding 详解
 
 通过 **ViewBinding(视图绑定)** 功能，我们可以更轻松地编写与布局文件交互的代码。在模块中启用视图绑定之后，AGP 会为该模块中的每个 XML 布局文件生成一个绑定类。该绑定类的实例中会直接引用那些在布局中声明了资源 id 的控件。这样一来就减少了很多像 `findViewById` 这种操作，同时也为控件的安全性保驾护航。
+
+
+
+**文章核心点：**
+
+- VB 集成与一般使用方式，包括：Activity 、Fragment、Adapter、include、merge、ViewStub
+- KT 属性代理与泛型实化类型参数 `reified` 的介绍
+- 通过 KT 属性代理简化 VB 创建流程，并封装了一个库 VBHelper
+- LayoutInflater 原理与参数解析
+- XXXBinding 类的绑定过程
+- XXXBinding 类的生成过程
+
+
 
 **[VBHelper](https://github.com/jaydroid1024/VBHelper)**：是我写这篇文章提取的一个库，通过属性代理简化了VB的使用，有想了解的可以提提意见
 
@@ -44,7 +57,7 @@ val holder: BindingViewHolder<LayoutItemTextBinding> by vh(parent, LayoutItemTex
 
 
 
-## VB 概述
+## 1.VB 概述
 
 - 视图绑定在 Android Studio 3.6 Canary 11 及更高版本中可用。
 
@@ -75,9 +88,9 @@ val holder: BindingViewHolder<LayoutItemTextBinding> by vh(parent, LayoutItemTex
 
 
 
-## VB 一般使用
+## 2. VB 一般使用
 
-### Activity 
+### 2.1 Activity 
 
 ```kotlin
 private lateinit var binding: ActivityMainBinding
@@ -90,7 +103,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
-### Fragment
+### 2.2 Fragment
 
 ```kotlin
 private var _binding: FragmentFirstBinding? = null
@@ -105,7 +118,7 @@ override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, saved
 }
 ```
 
-### Adapter
+### 2.3 Adapter
 
 ```kotlin
 override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextHolder {
@@ -127,7 +140,7 @@ class TextHolder(val itemBinding: LayoutItemTextBinding) : RecyclerView.ViewHold
 }
 ```
 
-### include
+### 2.4 include
 
 ```kotlin
 binding.includeLayout.tvInfoInclude.text = "tvInfoInclude:$item"
@@ -137,7 +150,7 @@ val tvInfoInclude = LayoutInfoBinding.bind(binding.root)
 tvInfoInclude.tvInfoInclude.text = "tvInfoInclude:$item"
 ```
 
-### merge
+### 2.5 merge
 
 ```kotlin
 //include+merge 只能手动调用绑定类的bind方法
@@ -146,7 +159,7 @@ val tvInfoMerge = layoutInfoMergeBinding.tvInfoMerge
 tvInfoMerge.text = "tvInfoMerge:$item"
 ```
 
-### ViewStub
+### 2.6 ViewStub
 
 ```kotlin
 //ViewStub 只能手动调用绑定类的bind方法
@@ -160,7 +173,7 @@ binding.layoutViewStub.inflate()
 
 详细的测试代码参考：[**Github | VBHelper**](https://github.com/jaydroid1024/VBHelper)
 
-## VB 与 Kotlin by
+## 3. VB 与 Kotlin by
 
 采用 Kotlin 属性代理简化 VB 使用的三方库
 
@@ -168,7 +181,7 @@ binding.layoutViewStub.inflate()
 - **[ViewBindingKTX](https://github.com/DylanCaiCoding/ViewBindingKTX)**
 - **[VBHelper](https://github.com/jaydroid1024/VBHelper)**：这个是我写这篇文章提取的一个库，借鉴了上面两个的实现，精简了一些代码
 
-### KT 属性代理：`by` `lazy`
+### 3.1 KT 属性代理：`by` `lazy`
 
 - by关键字实际上就是一个属性代理运算符重载的符号，任何一个具备属性代理规则的类，都可以使用by关键字对属性进行代理。
 
@@ -200,7 +213,7 @@ binding.layoutViewStub.inflate()
 
 
 
-### KT 内联函数 `inline` 与泛型实化类型参数 `reified` 
+### 3.2 KT 内联函数 `inline` 与泛型实化类型参数 `reified` 
 
 [官方文档](https://www.kotlincn.net/docs/reference/inline-functions.html#%E5%85%B7%E4%BD%93%E5%8C%96%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0)
 
@@ -222,7 +235,7 @@ Kotlin和Java同样存在泛型类型擦除的问题，但是 Kotlin 通过 inli
 
 
 
-### 通过 lazy 属性代理 + inflate方法引用
+### 3.3 通过 lazy 属性代理 + inflate方法引用
 
 ```kotlin
 //通过 lazy 属性代理 + inflate方法引用
@@ -234,7 +247,7 @@ fun <VB : ViewBinding> ComponentActivity.binding1(inflate: (LayoutInflater) -> V
     }
 ```
 
-### 通过 lazy 属性代理 + 反射
+### 3.4 通过 lazy 属性代理 + 反射
 
 ```kotlin
 //通过 lazy 属性代理 + 反射
@@ -250,7 +263,7 @@ inline fun <reified VB : ViewBinding> ComponentActivity.binding3() =
     }
 ```
 
-### 通过自定义属性代理 + inflate方法引用
+### 3.5 通过自定义属性代理 + inflate方法引用
 
 ```kotlin
 //通过自定义属性代理 + inflate方法引用
@@ -262,7 +275,7 @@ fun <VB : ViewBinding> ComponentActivity.binding2(inflate: (LayoutInflater) -> V
     }
 ```
 
-### 通过自定义属性代理+ 反射
+### 3.6 通过自定义属性代理+ 反射
 
 ```kotlin
 //通过自定义属性代理+ 反射
@@ -293,13 +306,28 @@ private val binding4: ActivityMainBinding by binding4()
 
 其它 Fragment、View、Adapter 等绑定类的生成方式可以根据上面的方式灵活调整，也可参考：[**Github | VBHelper**](https://github.com/jaydroid1024/VBHelper)
 
-注意的地方：
+**注意的地方：**
+
+- 反射的方式我这里都是通过绑定类的 inflate 方法，也可以反射 bind 方法，就是入参不同可以根据具体情况灵活调整。
+- merge 标签作为根视图生成的绑定类的inflate 方法只有一个两参数的 其它情况都是一参和三参同时生成，反射时需要兼容一下，VBHelper 没有兼容这一点有需要的可以处理一下，具体做法就是 try-cache 分别处理。
+
+```java
+@NonNull
+public static LayoutInfoMergeBinding inflate(@NonNull LayoutInflater inflater,
+    @NonNull ViewGroup parent) {
+  if (parent == null) {
+    throw new NullPointerException("parent");
+  }
+  inflater.inflate(R.layout.layout_info_merge, parent);
+  return bind(parent);
+}
+```
 
 
 
-## VB 原理解析
+## 4. VB 原理解析
 
-### LayoutInflater 原理与参数解析
+### 4.1 LayoutInflater 原理与参数解析
 
 [参考：反思|Android LayoutInflater机制的设计与实现](https://juejin.cn/post/6844903919286485000)
 
@@ -463,7 +491,7 @@ LayoutInflater 布局填充有四个重载方法，最终都会调用到同一�
 
 
 
-### ActivityMainBinding 类的绑定过程
+### 4.2 ActivityMainBinding 类的绑定过程
 
 #### inflate 过程
 
@@ -581,7 +609,7 @@ DataBinding 借助 AGP 会为所有布局文件自动生成绑定类
 
 绑定类的 bind 方法通过传入的根布局以及自动收集的控件 id 实例化所有控件 并构建绑定类
 
-### ActivityMainBinding 类的生成过程
+### 4.3 ActivityMainBinding 类的生成过程
 
 [参考：ViewBinding 的本质](https://juejin.cn/post/6844904106268557326)
 
@@ -1028,13 +1056,4 @@ private fun typeSpec() = classSpec(binder.generatedTypeName) {
   - [AS 中关于 DataBind 的一个库：Generate lexer and parser code](https://android.googlesource.com/platform/tools/adt/idea/+/refs/heads/mirror-goog-studio-master-dev/android-lang-databinding/)
 
     
-
-## 总结
-
-- VB 集成与一般使用方式，包括：Activity 、Fragment、Adapter、include、merge、ViewStub
-- KT 属性代理与泛型实化类型参数 `reified` 的介绍
-- 通过 KT 属性代理创建 VB
-- LayoutInflater 原理与参数解析
-- XXXBinding 类的绑定过程
-- XXXBinding 类的生成过程
 

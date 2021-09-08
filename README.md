@@ -17,17 +17,17 @@ ViewBinding 原理解析点 [这里](/Jetpack_Viewbinding_Doc.md)，主要介绍
 
 ```groovy
 //Step 1. Add the JitPack repository to your build file
-allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
 }
 
 
 //Step 2. Add the dependency
 dependencies {
-	  implementation 'com.github.jaydroid1024:VBHelper:0.0.1'
+    implementation 'com.github.jaydroid1024:VBHelper:0.0.1'
 }
 
 ```
