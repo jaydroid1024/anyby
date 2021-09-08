@@ -67,7 +67,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    implementation(project(":vbhelper"))
+//    implementation(project(":vbhelper"))
+
+    implementation 'com.github.jaydroid1024:VBHelper:0.0.1'
 
     //todo 依赖 databinding-compiler 方便查看 ViewBinding 类的生成过程
     // https://mvnrepository.com/artifact/androidx.databinding/databinding-compiler-common

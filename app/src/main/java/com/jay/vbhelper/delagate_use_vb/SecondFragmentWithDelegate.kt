@@ -23,7 +23,7 @@ import com.jay.vbhelper.delegate.vb
 class SecondFragmentWithDelegate : Fragment() {
 
     //通过自定义属性代理 + 反射 bind 方法，这种方式需要提前加载好 view
-//    private val binding: FragmentSecondBinding by vb()
+    private val binding2: FragmentSecondBinding by vb()
 
     private val binding: FragmentSecondBinding by vb(FragmentSecondBinding::inflate)
 
@@ -34,8 +34,6 @@ class SecondFragmentWithDelegate : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.d("Jay", "99layoutIdRes")
-
         return binding.root
     }
 

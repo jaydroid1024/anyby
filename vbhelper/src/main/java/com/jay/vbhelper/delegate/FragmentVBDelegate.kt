@@ -60,20 +60,6 @@ inline fun <reified T : ViewBinding> fragmentVBDelegate(
         val inflateMethod = T::class.java.getMethod("inflate", LayoutInflater::class.java)
 
         init {
-            Log.d("Jay", "layoutIdRes:$layoutIdRes")
-
-//            fragment.viewLifecycleOwner.lifecycle.addObserver(object : LifecycleObserver {
-//                @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-//                fun onDestroyView() {
-//                    Log.i("FragmentVBDelegate", "onDestroy,binding:$binding")
-//                }
-//
-//                @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-//                fun onCreate() {
-//                    Log.i("FragmentVBDelegate", "onCreate,binding:$binding")
-//                }
-//            })
-
             fragment.viewLifecycleOwnerLiveData.observe(fragment) { viewLifecycleOwner ->
                 viewLifecycleOwner.lifecycle.addObserver(object : LifecycleObserver {
                     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
