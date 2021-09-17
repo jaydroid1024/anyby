@@ -36,10 +36,10 @@ import kotlin.reflect.KClass
  */
 @MainThread
 inline fun <reified T : ViewBinding> ComponentActivity.vb(noinline inflateMethodRef: ((LayoutInflater) -> T)? = null): Lazy<T> =
-    ActivityVBLazyWithReflect(this, T::class, inflateMethodRef)
+    ActivityVBLazy(this, T::class, inflateMethodRef)
 
 
-class ActivityVBLazyWithReflect<T : ViewBinding>(
+class ActivityVBLazy<T : ViewBinding>(
     private val activity: ComponentActivity,
     private val kClass: KClass<*>,
     private val inflateMethodRef: ((LayoutInflater) -> T)?

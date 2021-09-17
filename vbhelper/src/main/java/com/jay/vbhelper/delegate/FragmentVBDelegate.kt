@@ -74,7 +74,6 @@ class FragmentVNLazy<T>(
             return viewBinding!!
         }
 
-
     override fun isInitialized() = cachedBinding != null
 
 }
