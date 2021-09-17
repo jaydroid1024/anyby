@@ -47,6 +47,17 @@
         <!--            </intent-filter>-->
         <!--        </activity>-->
 
+        <activity
+            android:name=".delegate_vm.ViewModelTestActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.VBHelper.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 

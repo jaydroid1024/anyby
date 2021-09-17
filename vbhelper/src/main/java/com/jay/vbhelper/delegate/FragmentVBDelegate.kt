@@ -1,124 +1,105 @@
+/**
+ * 在 Fragment 中创建 ViewBinding 绑定类
+ * 使用方式如下：
+ * 1. 借助 lazy 属性委托  + 反射 VB 的 inflate 方法
+ * private val binding: FragmentMainBinding by vb()
+ * override fun onCreateView(l: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
+ *  return binding.root //通过 inflate 方法获取 VB 的方式需要在 onCreateView 中返回根视图
+ * }
+ *
+ * 2. 借助 lazy 属性委托  + 传递 VB 的 inflate 方法引用
+ * private val binding: FragmentMainBinding by vb(FragmentMainBinding::inflate)
+ * override fun onCreateView(l: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
+ *  return binding.root //通过 inflate 方法获取 VB 的方式需要在 onCreateView 中返回根视图
+ * }
+ *
+ * @author jaydroid
+ * @version 1.0
+ * @date 2021/9/17
+ */
+
 package com.jay.vbhelper.delegate
 
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
+import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
 import androidx.viewbinding.ViewBinding
-import java.lang.reflect.Field
-import kotlin.properties.ReadOnlyProperty
-import kotlin.reflect.KProperty
+import kotlin.reflect.KClass
 
-/*
+
+/**
  * 在 Fragment 中创建 ViewBinding 绑定类
- * 使用方式如下：
- * 1. 通过自定义属性代理 + 反射绑定类的 inflate 方法
- * private val binding: FragmentMainBinding by vb()
- * 2. 通过自定义属性代理 + 传递 inflate 方法引用
- * private val binding: FragmentMainBinding by vb(FragmentMainBinding::inflate)
- */
-
-/**
- * 通过自定义属性代理 + 反射绑定类的 inflate 方法
  *
  * @param T ViewBinding 的子类
+ * @param inflateMethodRef (LayoutInflater) -> T) VB 中 inflate 方法的函数引用
  */
-inline fun <reified T : ViewBinding> Fragment.vb() = fragmentVBDelegate<T>(this, -1)
+@MainThread
+inline fun <reified T : ViewBinding> Fragment.vb(noinline inflateMethodRef: ((LayoutInflater) -> T)? = null): Lazy<T> =
+    FragmentVNLazy(this, T::class, inflateMethodRef)
 
 
-/**
- * todo Fragment 布局 id
- * 通过自定义属性代理 + 反射绑定类的 inflate 方法+Fragment 布局 id
- *
- * @param T ViewBinding 的子类
- * @param layoutIdRes Fragment 布局 id 用于解脱 OnCreateView 方法
- */
-inline fun <reified T : ViewBinding> Fragment.vb(layoutIdRes: Int) =
-    fragmentVBDelegate<T>(this, layoutIdRes)
+class FragmentVNLazy<T>(
+    private val fragment: Fragment,
+    private val kClass: KClass<*>,
+    private val inflateMethodRef: ((LayoutInflater) -> T)?
+) : Lazy<T> {
+    private var cachedBinding: T? = null
+    private val clearBindingHandler by lazy(LazyThreadSafetyMode.NONE) { Handler(Looper.getMainLooper()) }
 
-/**
- * 通过自定义属性代理 + 传递 inflate 方法引用
- *
- * @param T ViewBinding 的子类
- * @param layoutIdRes Fragment 布局id 用于解脱 OnCreateView 方法
- * @param fragment fragment
- * @return ReadOnlyProperty
- */
-inline fun <reified T : ViewBinding> fragmentVBDelegate(
+    init {
+        observeFragmentDestroy(fragment) { clearBindingHandler.post { cachedBinding = null } }
+    }
+
+    override val value: T
+        get() {
+            var viewBinding = cachedBinding
+            if (viewBinding == null) {
+                checkBindingFirstInvoke(fragment)
+                viewBinding = if (inflateMethodRef != null) {
+                    //借助 lazy 属性委托 + 传递 inflate 方法引用
+                    inflateMethodRef.invoke(fragment.layoutInflater)
+                } else {
+                    //借助 lazy 属性委托  + 反射绑定类的 inflate 方法
+                    @Suppress("UNCHECKED_CAST")
+                    kClass.java.getMethod(METHOD_INFLATE, LayoutInflater::class.java)
+                        .invoke(null, fragment.layoutInflater) as T
+                }
+                cachedBinding = viewBinding
+            }
+            return viewBinding!!
+        }
+
+
+    override fun isInitialized() = cachedBinding != null
+
+}
+
+
+fun observeFragmentDestroy(
     fragment: Fragment,
-    layoutIdRes: Int
-): ReadOnlyProperty<Fragment, T> =
-    object : ReadOnlyProperty<Fragment, T> {
-        private val clearBindingHandler by lazy(LazyThreadSafetyMode.NONE) { Handler(Looper.getMainLooper()) }
-        private var binding: T? = null
-
-
-        val inflateMethod = T::class.java.getMethod("inflate", LayoutInflater::class.java)
-
-        init {
-            fragment.viewLifecycleOwnerLiveData.observe(fragment) { viewLifecycleOwner ->
-                viewLifecycleOwner.lifecycle.addObserver(object : LifecycleObserver {
-                    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-                    fun onDestroy() {
-                        clearBindingHandler.post { binding = null }
-                        Log.i("FragmentVBDelegate", "onDestroy,binding:$binding")
-                    }
-                })
+    callback: () -> Unit
+) {
+    fragment.viewLifecycleOwnerLiveData.observe(fragment) { viewLifecycleOwner ->
+        viewLifecycleOwner.lifecycle.addObserver(object : LifecycleObserver {
+            @androidx.lifecycle.OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+            fun onDestroy() {
+                Log.i(TAG, "${fragment::class.java.simpleName} call onDestroy")
+                callback.invoke()
             }
-        }
-
-        override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
-            binding?.let { return it }
-            val lifecycle = thisRef.viewLifecycleOwner.lifecycle
-            if (!lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)) {
-                error("Cannot access view bindings. View lifecycle is ${lifecycle.currentState}!")
-            }
-            @Suppress("UNCHECKED_CAST")
-            binding = inflateMethod.invoke(null, thisRef.layoutInflater) as T
-            return binding!!
-        }
+        })
     }
+}
 
-
-/**
- * 通过自定义属性代理 + 传递 inflate 方法引用
- *
- * @param T ViewBinding 的子类
- * @param inflate LayoutInflater
- */
-fun <T : ViewBinding> Fragment.vb(inflate: (LayoutInflater) -> T) =
-
-    object : ReadOnlyProperty<Fragment, T> {
-        private val clearBindingHandler by lazy(LazyThreadSafetyMode.NONE) { Handler(Looper.getMainLooper()) }
-        private var binding: T? = null
-
-        init {
-            this@vb.viewLifecycleOwnerLiveData.observe(this@vb) { viewLifecycleOwner ->
-                viewLifecycleOwner.lifecycle.addObserver(object : LifecycleObserver {
-                    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-                    fun onDestroy() {
-                        clearBindingHandler.post { binding = null }
-                        Log.i("FragmentVBDelegate", "onDestroy,binding:$binding")
-                    }
-                })
-            }
-        }
-
-        override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
-            binding?.let { return it }
-            val lifecycle = thisRef.viewLifecycleOwner.lifecycle
-            if (!lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)) {
-                error("Cannot access view bindings. View lifecycle is ${lifecycle.currentState}!")
-            }
-            binding = inflate(layoutInflater)
-            return binding!!
-        }
+private fun checkBindingFirstInvoke(fragment: Fragment) {
+    if (!fragment.viewLifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)) {
+        error("Cannot access view bindings. View lifecycle is ${fragment.viewLifecycleOwner.lifecycle.currentState}!")
     }
-
+}
 
 
 

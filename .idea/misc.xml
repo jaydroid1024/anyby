@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/layout-land/layout_info_land.xml" value="0.15677083333333333" />
         <entry key="app/src/main/res/layout/activity_inflate_test.xml" value="0.12108980827447023" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14175724637681159" />
+        <entry key="app/src/main/res/layout/activity_vm_test.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.14175724637681159" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.12815338042381433" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.25" />

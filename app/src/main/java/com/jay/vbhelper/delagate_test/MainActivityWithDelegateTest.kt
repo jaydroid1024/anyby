@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,6 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.viewbinding.ViewBinding
 import com.jay.vbhelper.R
 import com.jay.vbhelper.databinding.ActivityMainBinding
+import com.jay.vbhelper.delegate_vm.MyViewModel
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -86,6 +88,9 @@ class MainActivityWithDelegateTest : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+
         Log.d("Jay", "onCreate")
         val t1 = System.currentTimeMillis()
         binding = binding3
