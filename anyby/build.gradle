@@ -1,18 +1,7 @@
+group = "anyby"
 apply from: "../common.gradle"
 
 dependencies {
     api(project(":vbhelper"))
 //    implementation 'com.github.jaydroid1024:VBHelper:0.0.1'
-}
-afterEvaluate {
-    publishing {
-        publications {
-            // Creates a Maven publication called "release".
-            release(MavenPublication) {
-                from components.release
-                groupId = 'com.jay.android'
-                artifactId = 'anyby'
-            }
-        }
-    }
 }

@@ -1,18 +1,7 @@
+group = "vbhelper"
 apply from: "../common.gradle"
 
 dependencies {
 
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            // Creates a Maven publication called "release".
-            release(MavenPublication) {
-                from components.release
-                groupId = 'com.github.jaydroid1024'
-                artifactId = 'vbhelper'
-            }
-        }
-    }
-}

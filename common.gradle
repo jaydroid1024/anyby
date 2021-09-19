@@ -43,3 +43,20 @@ dependencies {
     androidTestImplementation rootProject.ext.espressoCore
 }
 
+// 唯一标识 每个组件都要指定
+def ARTIFACT_ID = group.toString()
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                println ARTIFACT_ID
+                from components.release
+                groupId = 'com.github.jaydroid1024'
+                artifactId = ARTIFACT_ID
+            }
+        }
+    }
+}
+
