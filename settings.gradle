@@ -7,7 +7,8 @@ dependencyResolutionManagement {
         jcenter() // Warning: this repository is going to shut down soon
     }
 }
-rootProject.name = "VBHelper"
-include ':app'
+rootProject.name = "anyby"
+
+include ':simple'
 include ':vbhelper'
 include ':anyby'
