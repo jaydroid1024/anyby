@@ -71,7 +71,6 @@ dependencies {
 
 
     implementation(project(":anyby"))
-//    implementation 'com.github.jaydroid1024:VBHelper:0.0.1'
 
 
     //todo 依赖 databinding-compiler 方便查看 ViewBinding 类的生成过程

@@ -1,6 +1,18 @@
 apply from: "../common.gradle"
 
 dependencies {
-//    implementation(project(":vbhelper"))
-//    implementation 'com.github.jaydroid1024:VBHelper:0.0.1'
+
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.jaydroid1024'
+                artifactId = 'vbhelper'
+            }
+        }
+    }
 }

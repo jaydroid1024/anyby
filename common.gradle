@@ -41,5 +41,5 @@ dependencies {
     testImplementation rootProject.ext.junit
     androidTestImplementation rootProject.ext.junitX
     androidTestImplementation rootProject.ext.espressoCore
-
 }
+
