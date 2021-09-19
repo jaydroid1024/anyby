@@ -20,13 +20,13 @@ ext {
 
 
     java = [
-            javaSourceCompatibility = JavaVersion.VERSION_11,
-            javaTargetCompatibility = JavaVersion.VERSION_11
+            javaSourceCompatibility = JavaVersion.VERSION_1_8,
+            javaTargetCompatibility = JavaVersion.VERSION_1_8
     ]
 
     kotlin = [
             kotlinVersion = '1.5.30',
-            kotlinOptionsJvmTarget = JavaVersion.VERSION_11.toString()
+            kotlinOptionsJvmTarget = JavaVersion.VERSION_1_8.toString()
     ]
 
 

@@ -1,7 +1,6 @@
 package com.jay.vbhelper.simple.delegate_sp
 
 import android.content.SharedPreferences
-import com.jay.anyby.sp.string
 
 /**
  * @author jaydroid
@@ -10,19 +9,19 @@ import com.jay.anyby.sp.string
  */
 class UserHolder(prefs: SharedPreferences) {
 
-    var name: String by prefs.string()
-        private set
-
-    var pwd: String by prefs.string()
-        private set
-
-    fun saveUserAccount(name: String, pwd: String) {
-        this.name = name
-        this.pwd = pwd
-    }
-
-    override fun toString(): String {
-        return "UserHolder(name='$name', pwd='$pwd')"
-    }
+//    var name: String by prefs.string()
+//        private set
+//
+//    var pwd: String by prefs.string()
+//        private set
+//
+//    fun saveUserAccount(name: String, pwd: String) {
+//        this.name = name
+//        this.pwd = pwd
+//    }
+//
+//    override fun toString(): String {
+//        return "UserHolder(name='$name', pwd='$pwd')"
+//    }
 
 }
