@@ -1,4 +1,4 @@
-package com.jay.vbhelper.delagate_use_vb
+package com.jay.vbhelper.delagate_vb
 
 import android.annotation.SuppressLint
 import android.content.Context

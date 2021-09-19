@@ -1,0 +1,270 @@
+// ext属性是ExtensionAware类型的一个特殊的属性，本质是一个Map类型的变量，
+// 而 ExtentionAware接口的实现类为Project, Settings, Task, SourceSet等，
+// ExtentionAware 可以在运行时扩充属性，而这里的ext，就是里面的一个特殊的属性而已。
+ext {
+
+
+    android = [
+            compileSdk= 30,
+            buildToolsVersion = '30.0.3',
+            minSdk = 21,
+            targetSdk = 30,
+            versionCode = 1,
+            versionName = "1.0.0",
+
+            // Application ID
+            prodApplicationId = 'id.tix.android',
+            apiaryApplicationId = 'id.tix.android.apiary',
+            devApplicationId = 'id.tix.android.dev',
+    ]
+
+
+    java = [
+            javaSourceCompatibility = JavaVersion.VERSION_11,
+            javaTargetCompatibility = JavaVersion.VERSION_11
+    ]
+
+    kotlin = [
+            kotlinVersion = '1.5.30',
+            kotlinOptionsJvmTarget = JavaVersion.VERSION_11.toString()
+    ]
+
+
+    //三方依赖库多个依赖路径引入同一个版本号时需要提取版本号
+    version = [
+            kotlinVersion = '1.5.10',
+            stethoVersion = '1.5.1',
+            retrofitVersion = '2.8.1',
+            okhttpVersion = '4.5.0',
+            glideVersion = '4.11.0',
+            chuckVersion = '1.1.0',
+            chuckerVersion = '3.2.0',
+            butterknifeVersion = '10.2.1',
+            immersionbarVersion = '3.0.0',
+            tinkerVersion = '1.9.14',
+            jDispatcherVersion = '0.0.7',
+            epoxyVersion = '4.6.2'
+
+    ]
+
+    //引入三方依赖库时考虑该库到稳定性，可维护性，需要标明引入到github地址并归类放置
+    dependencies = [
+
+            /** ========================================================= */
+            /** =================== android/androidX ==================== */
+            /** ========================================================= */
+            kotlinStdlibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
+            appcompat = 'androidx.appcompat:appcompat:1.3.1',
+            coreKtx = 'androidx.core:core-ktx:1.6.0',
+            material = 'com.google.android.material:material:1.4.0',
+            junit = 'junit:junit:4.12',
+            junitX = 'androidx.test.ext:junit:1.1.1',
+            espressoCore = 'androidx.test.espresso:espresso-core:3.2.0',
+            androidJUnitRunner = "android.support.test.runner.AndroidJUnitRunner",
+            constraintLayout = "androidx.constraintlayout:constraintlayout:1.1.3",
+
+            /** ========================================================= */
+            /** ========================= kotlin ======================== */
+            /** ========================================================= */
+            //kotlin-stdlib-jdk7
+            kotlinStdlibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
+            //kotlin-stdlib-jdk8
+            kotlinStdlibJdk8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion",
+            //anko-sqlite
+            ankoSqlite = "org.jetbrains.anko:anko-sqlite:0.10.5",
+            //kotlin-reflect
+            kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion",
+
+
+            /** ========================================================= */
+            /** ========================== tools ======================== */
+            /** ========================================================= */
+            //stetho 调试工具 https://github.com/facebook/stetho
+            stetho = "com.facebook.stetho:stetho:$stethoVersion",
+            //stetho 网络调试 https://github.com/facebook/stetho
+            stethoOkhttp3 = "com.facebook.stetho:stetho-okhttp3:$stethoVersion",
+            //stetho 网络调试 https://github.com/facebook/stetho
+            stethoUrlconnection = "com.facebook.stetho:stetho-urlconnection:$stethoVersion",
+
+            //Chuck Okhttp日志打印工具 https://github.com/jgilfelt/chuck
+            chuckDebug = "com.readystatesoftware.chuck:library:$chuckVersion",
+            //Chuck Okhttp日志打印工具 https://github.com/jgilfelt/chuck
+            chuckRelease = "com.readystatesoftware.chuck:library-no-op:$chuckVersion",
+            //Chucker Okhttp日志和Android异常信息打印工具 https://github.com/ChuckerTeam/chucker
+            ChuckerDebug = "com.github.ChuckerTeam.Chucker:library:$chuckerVersion",
+            //Chucker Okhttp日志和Android异常信息打印工具 https://github.com/ChuckerTeam/chucker
+            ChuckerRelease = "com.github.ChuckerTeam.Chucker:library-no-op:$chuckerVersion",
+
+            //logger https://github.com/orhanobut/logger
+            logger = "com.orhanobut:logger:2.2.0",
+
+            //arouter api https://github.com/alibaba/ARouter
+            arouterApi = "com.alibaba:arouter-api:1.5.2",
+            //arouter compiler https://github.com/alibaba/ARouter
+            arouterCompiler = "com.alibaba:arouter-compiler:1.2.2",
+
+            //butterknife https://github.com/JakeWharton/butterknife
+            butterknife = "com.jakewharton:butterknife:$butterknifeVersion",
+            //butterknifeCompiler https://github.com/JakeWharton/butterknife
+            butterknifeCompiler = "com.jakewharton:butterknife-compiler:$butterknifeVersion",
+
+            //eventbus https://github.com/greenrobot/EventBus
+            eventbus = 'org.greenrobot:eventbus:3.2.0',
+            //greendao https://github.com/greenrobot/greenDAO
+            greendao = 'org.greenrobot:greendao:3.2.2',
+
+            //gson https://github.com/google/gson
+            gson = 'com.google.code.gson:gson:2.8.6',
+
+
+            jdispatcherApi = "com.github.jaydroid1024.JDispatcher:jdispatcher-api:$jDispatcherVersion",
+            jdispatcherCompiler = "com.github.jaydroid1024.JDispatcher:jdispatcher-compiler:$jDispatcherVersion",
+            jdispatcherPlugin = "com.github.jaydroid1024.JDispatcher:jdispatcher-plugin:$jDispatcherVersion",
+
+
+            /** ========================================================= */
+            /** ========================= network ======================= */
+            /** ========================================================= */
+            //retrofit https://github.com/square/retrofit
+            retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            //retrofit converter-gson https://github.com/square/retrofit/blob/master/retrofit-converters/gson/README.md
+            retrofitConverterGson = "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            //retrofit adapter-rxjava https://github.com/square/retrofit/tree/master/retrofit-adapters/rxjava2
+            retrofitAdapterRxjava = "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+            // Retrofit 同时支持多个 BaseUrl 以及动态改变 BaseUrl(已知问题：不同url 的https证书问题) https://github.com/JessYanCoding/RetrofitUrlManager
+            retrofitUrlManager = "me.jessyan:retrofit-url-manager:1.4.0",
+
+            //okhttp https://github.com/square/okhttp
+            okhttp = "com.squareup.okhttp3:okhttp:$okhttpVersion",
+            //okhttp logging-interceptor https://github.com/square/okhttp/blob/master/okhttp-logging-interceptor/README.md
+            okhttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$okhttpVersion",
+            // PersistentCookieJar https://github.com/franmontiel/PersistentCookieJar
+            persistentcookiejar = "com.github.franmontiel:PersistentCookieJar:v1.0.1",
+
+            //rxjava https://github.com/ReactiveX/RxJava  todo rxjava:3.x.x
+            rxjava = 'io.reactivex.rxjava2:rxjava:2.2.10',
+            //rxandroid https://github.com/ReactiveX/RxAndroid todo rxandroid:3.x.x
+            rxandroid = 'io.reactivex.rxjava2:rxandroid:2.1.1',
+
+            //glide 图片加载 https://github.com/bumptech/glide
+            glide = "com.github.bumptech.glide:glide:$glideVersion",
+            //glide图片加载注解 https://github.com/bumptech/glide
+            glideAnnotationProcessor = "com.github.bumptech.glide:compiler:$glideVersion",
+
+
+            /** ========================================================= */
+            /** ========================== UI相关 ======================== */
+            /** ========================================================= */
+            // statusbarUtil https://github.com/laobie/StatusBarUtil
+            statusbarUtil = "com.jaeger.statusbarutil:library:1.5.1",
+
+            // 基础依赖包，必须要依赖 https://github.com/gyf-dev/ImmersionBar
+            immersionbar = "com.gyf.immersionbar:immersionbar:$immersionbarVersion",
+            // fragment快速实现（可选） https://github.com/gyf-dev/ImmersionBar
+            immersionbarComponents = "com.gyf.immersionbar:immersionbar-components:$immersionbarVersion",
+            // kotlin扩展（可选） https://github.com/gyf-dev/ImmersionBar
+            immersionbarKtx = "com.gyf.immersionbar:immersionbar-ktx:$immersionbarVersion",
+            //
+            recyclerAdapterHelper = "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.45-androidx",
+            //
+            smartRefreshLayout = "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0",
+            //
+            banner = "com.youth.banner:banner:1.4.10",
+            //
+            lottie = "com.airbnb.android:lottie:2.7.0",
+
+            //https://github.com/airbnb/epoxy
+            epoxy = "com.airbnb.android:epoxy:$epoxyVersion",
+            // Add the annotation processor if you are using Epoxy's annotations (recommended)
+            epoxyProcessor = "com.airbnb.android:epoxy-processor:$epoxyVersion",
+
+
+            /** ========================================================= */
+            /** ========================== 三方SDK ======================= */
+            /** ========================================================= */
+            //tinker热修复：tinker的核心库
+            tinkerLib = "com.tencent.tinker:tinker-android-lib:$tinkerVersion",
+            tinkerLoader = "com.tencent.tinker:tinker-android-loader:$tinkerVersion",
+            //tinker热修复：可选，用于生成application类
+            tinkerAnno = "com.tencent.tinker:tinker-android-anno:$tinkerVersion",
+            //
+            wechat = "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+",
+
+
+            /** ========================================================= */
+            /** ======================== components ===================== */
+            /** ========================================================= */
+            //maven components
+            base_lib = 'com.jaydroid.base_lib:base_lib:1.0.0',
+            base_component = 'com.jaydroid.base_component:base_component:2.0.0',
+            base_component_wan = 'com.jaydroid.base_component_wan:base_component_wan:2.0.0',
+            main = "com.jaydroid.main:main:1.0.0",
+            login = "com.jaydroid.login:login:1.0.0",
+
+    ]
+
+
+}
+
+
+/**
+ * 获取属性总配置文件
+ * @return Properties实例 config
+ */
+Properties getConfigProperties() {
+    def CONFIG_PATH = "./buildsystem/config.properties"
+    return getProperties(CONFIG_PATH)
+}
+
+/**
+ * 获取属性配置文件公共方法
+ * @param propPath Properties配置文件路径
+ * @return Properties实例
+ */
+Properties getProperties(String propPath) {
+    Properties props = new Properties()
+    props.load(new FileInputStream(file(propPath)))
+    return props
+}
+
+/**
+ * 获取签名配置文件
+ * @return Properties实例  签名
+ */
+Properties getKeyProperties() {
+    Properties configProperties = getConfigProperties()
+    // 使用assert确保存在该属性否则报错，避免错误打包
+    assert configProperties['keystore.props.file']
+    return getProperties(configProperties.getProperty("keystore.props.file"))
+}
+
+/**
+ * 获取Maven仓库配置文件
+ * @return Properties实例  Maven
+ */
+Properties getMavenProperties() {
+    Properties configProperties = getConfigProperties()
+    // 使用assert确保存在该属性否则报错，避免错误打包
+    assert configProperties['maven.props.file']
+    return getProperties(configProperties.getProperty("maven.props.file"))
+}
+
+/**
+ * 获取当前指定的环境类型，缺省dev
+ * @return
+ */
+String getEnvironmentPropertyType() {
+    Properties localProperties = getConfigProperties()
+    return localProperties.getProperty("propertyType", "dev")
+}
+
+//根据环境类型获取环境配置文件
+Properties getEnvironmentProperties(String propertyType) {
+    Properties localProperties = getConfigProperties()
+    String environmentPath = "${propertyType}.props.file"
+    // 使用assert确保存在该属性否则报错，避免错误打包
+    assert localProperties[environmentPath]
+    return getProperties(localProperties.getProperty(environmentPath))
+}
+
+

@@ -1,5 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    //使用config.gradle统一管理项目的依赖库
+    apply from: "config.gradle"
     repositories {
         google()
         mavenCentral()

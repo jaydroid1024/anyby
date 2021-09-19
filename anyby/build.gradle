@@ -1,6 +1,6 @@
 apply from: "../common.gradle"
 
 dependencies {
-//    implementation(project(":vbhelper"))
+    api(project(":vbhelper"))
 //    implementation 'com.github.jaydroid1024:VBHelper:0.0.1'
 }

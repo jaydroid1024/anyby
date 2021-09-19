@@ -37,7 +37,7 @@
         android:orientation="vertical" />
 
 
-    <com.jay.vbhelper.delagate_use_vb.CustomViewWithDelegate
+    <com.jay.vbhelper.delagate_vb.CustomViewWithDelegate
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

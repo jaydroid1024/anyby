@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jay.vbhelper.R
 import com.jay.vbhelper.databinding.FragmentFirstBinding
-import com.jay.vbhelper.delagate_use_vb.TextAdapterWithDelegate
+import com.jay.vbhelper.delagate_vb.TextAdapterWithDelegate
 
 /**
  * @author jaydroid

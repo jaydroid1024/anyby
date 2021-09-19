@@ -6,7 +6,7 @@
  */
 @file:kotlin.jvm.JvmName("ActivityVMDelegateKt")
 
-package com.jay.vbhelper.delegate_vm.vm
+package com.jay.anyby.vm
 
 import androidx.activity.ComponentActivity
 import androidx.annotation.MainThread

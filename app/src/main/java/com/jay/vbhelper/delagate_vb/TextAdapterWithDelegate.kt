@@ -1,4 +1,4 @@
-package com.jay.vbhelper.delagate_use_vb
+package com.jay.vbhelper.delagate_vb
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

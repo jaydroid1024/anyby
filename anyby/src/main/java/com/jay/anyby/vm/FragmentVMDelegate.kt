@@ -6,7 +6,7 @@
  */
 @file:kotlin.jvm.JvmName("FragmentVMDelegateKt")
 
-package com.jay.vbhelper.delegate_vm.vm
+package com.jay.anyby.vm
 
 import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment

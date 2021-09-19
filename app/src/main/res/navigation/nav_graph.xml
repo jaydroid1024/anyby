@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.jay.vbhelper.delagate_use_vb.SecondFragmentWithDelegate"
+        android:name="com.jay.vbhelper.delagate_vb.SecondFragmentWithDelegate"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 
