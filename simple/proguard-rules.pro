@@ -19,3 +19,18 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+# proguard 官网
+#https://www.guardsquare.com/manual/configuration/examples
+#https://www.guardsquare.com/proguard
+#-keepclassmembers 作用只是保证类成员 ( 成员变量 , 成员方法 ) 不被混淆 , 类名还是会被混淆的
+#-keepclassmembers class * implements androidx.viewbinding.ViewBinding {
+#    public static ** bind(***);
+#    public static ** inflate(***);
+#    public static ** inflate(**,**);
+#}
+#-keepclassmembers class * implements androidx.viewbinding.ViewBinding {
+#    *;
+#}
+#-keep class * implements androidx.viewbinding.ViewBinding {
+#    *;
+#}

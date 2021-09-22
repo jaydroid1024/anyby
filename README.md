@@ -1,7 +1,7 @@
 # VBHelper
 ViewBinding 超详细原理解析，利用 Kotlin 属性委托实现 VBHelper 方便 VB 在多场景下的生成
 
-**ViewBinding 原理解析点 [这里](https://juejin.cn/post/7005504217935052837)，主要介绍了以下几点：**
+**ViewBinding 原理解析点[这里](https://juejin.cn/post/7005504217935052837)，主要介绍了以下几点：**
 
 - VB 集成与一般使用方式，包括：Activity 、Fragment、Adapter、include、merge、ViewStub
 - KT 属性代理与泛型实化类型参数 `reified` 的介绍
@@ -180,9 +180,9 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         maven { url 'https://jitpack.io' }
+        ...
     }
 }
-
 
 //Step 2. Add the dependency
 dependencies {
@@ -191,12 +191,20 @@ dependencies {
     implementation 'com.github.jaydroid1024.VBHelper:anyby:0.0.7' 
 }
 
+//Step 3. Add the ProGuard
+#-keepclassmembers 作用只是保证类成员 ( 成员变量 , 成员方法 ) 不被混淆 , 类名还是会被混淆的
+-keepclassmembers class * implements androidx.viewbinding.ViewBinding {
+    public static ** inflate(***);
+    public static ** inflate(**,**);
+}
 
-Build artifacts:
+
+
+//Build artifacts:
 com.github.jaydroid1024.VBHelper:vbhelper:0.0.7
 com.github.jaydroid1024.VBHelper:anyby:0.0.7
 
-Files: 
+//Files: 
 com/github/jaydroid1024/VBHelper/vbhelper/0.0.7
 com/github/jaydroid1024/VBHelper/vbhelper/0.0.7/vbhelper-0.0.7-sources.jar
 com/github/jaydroid1024/VBHelper/vbhelper/0.0.7/vbhelper-0.0.7.aar

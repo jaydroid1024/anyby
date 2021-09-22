@@ -23,9 +23,9 @@ import com.jay.vbhelper.simple.databinding.LayoutInfoViewStubBinding
 class SecondFragmentWithDelegate : Fragment() {
 
     //通过自定义属性代理 + 反射 bind 方法，这种方式需要提前加载好 view
-    private val binding2: FragmentSecondBinding by vb()
+    private val binding: FragmentSecondBinding by vb()
 
-    private val binding: FragmentSecondBinding by vb(FragmentSecondBinding::inflate)
+//    private val binding: FragmentSecondBinding by vb(FragmentSecondBinding::inflate)
 
 //    private val binding: FragmentSecondBinding by vb(R.layout.fragment_second)
 
