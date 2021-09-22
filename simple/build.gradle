@@ -70,7 +70,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
 
-    implementation(project(":anyby"))
+//    implementation(project(":anyby"))
+    implementation 'com.github.jaydroid1024.anyby:anyby:0.0.7'
+
 
 
     //todo 依赖 databinding-compiler 方便查看 ViewBinding 类的生成过程

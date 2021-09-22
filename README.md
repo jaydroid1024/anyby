@@ -1,7 +1,8 @@
 # VBHelper
 ViewBinding 超详细原理解析，利用 Kotlin 属性委托实现 VBHelper 方便 VB 在多场景下的生成
 
-ViewBinding 原理解析点 [这里](/Jetpack_Viewbinding_Doc.md)，主要介绍了以下几点
+**ViewBinding 原理解析点 [这里](https://juejin.cn/post/7005504217935052837)，主要介绍了以下几点：**
+
 - VB 集成与一般使用方式，包括：Activity 、Fragment、Adapter、include、merge、ViewStub
 - KT 属性代理与泛型实化类型参数 `reified` 的介绍
 - 通过 KT 属性代理创建 VB
@@ -9,11 +10,27 @@ ViewBinding 原理解析点 [这里](/Jetpack_Viewbinding_Doc.md)，主要介绍
 - XXXBinding 类的绑定过程
 - XXXBinding 类的生成过程
 
-借助 lazy 属性委托的优势：
+**属性委托详解点[这里](https://juejin.cn/post/7009329913534611486)， 要介绍了以下几点：**
 
-* Kotlin 1.4 做的优化，当某些委托属性不会使用 KProperty。对于他们来说，在 $$delegatedProperties 中生成 KProperty 对象是多余的。Kotlin 1.4 版本将优化此类情况。如果委托的属性运算符是内联的，并且没有使用 KProperty 参数，则不会生成相应的反射对象。
-* 参考博客：[What to Expect in Kotlin 1.4 and Beyond | Optimized delegated properties](https://blog.jetbrains.com/kotlin/2019/12/what-to-expect-in-kotlin-1-4-and-beyond/)
+- 辨析委托模式与代理模式
+- 接口委托(Delegated interface)
+- 属性委托(Delegated properties)
+- 映射委托(Map delegation)
+- 延迟属性(lazy properties)
+- 非空属性(Delegates.notNull)
+- 变量值更新后的监听(Delegates.observable)
+- 变量值更新前的拦截(Delegates.vetoable)
+- ViewBinding+属性委托
+- ViewModel+属性委托
+- SP+属性委托
+
+**借助 lazy 属性委托的优势：**
+
+- Kotlin 1.4 做的优化，当某些委托属性不会使用 KProperty。对于他们来说，在 $$delegatedProperties 中生成 KProperty 对象是多余的。Kotlin 1.4 版本将优化此类情况。如果委托的属性运算符是内联的，并且没有使用 KProperty 参数，则不会生成相应的反射对象。
+- 参考博客：[What to Expect in Kotlin 1.4 and Beyond | Optimized delegated properties](https://blog.jetbrains.com/kotlin/2019/12/what-to-expect-in-kotlin-1-4-and-beyond/)
   
+
+
 
 ## VBHelper 功能与使用
 
@@ -169,8 +186,32 @@ dependencyResolutionManagement {
 
 //Step 2. Add the dependency
 dependencies {
-    implementation 'com.github.jaydroid1024:VBHelper:0.0.1'
+    implementation 'com.github.jaydroid1024.VBHelper:vbhelper:0.0.7'
+    //anyby 包含 vbhelper 之后会陆续将更多Kotlin 属性委托的最佳实践放在这里
+    implementation 'com.github.jaydroid1024.VBHelper:anyby:0.0.7' 
 }
+
+
+Build artifacts:
+com.github.jaydroid1024.VBHelper:vbhelper:0.0.7
+com.github.jaydroid1024.VBHelper:anyby:0.0.7
+
+Files: 
+com/github/jaydroid1024/VBHelper/vbhelper/0.0.7
+com/github/jaydroid1024/VBHelper/vbhelper/0.0.7/vbhelper-0.0.7-sources.jar
+com/github/jaydroid1024/VBHelper/vbhelper/0.0.7/vbhelper-0.0.7.aar
+com/github/jaydroid1024/VBHelper/vbhelper/0.0.7/vbhelper-0.0.7.module
+com/github/jaydroid1024/VBHelper/vbhelper/0.0.7/vbhelper-0.0.7.pom
+com/github/jaydroid1024/VBHelper/vbhelper/0.0.7/vbhelper-0.0.7.pom.md5
+com/github/jaydroid1024/VBHelper/vbhelper/0.0.7/vbhelper-0.0.7.pom.sha1
+
+com/github/jaydroid1024/VBHelper/anyby/0.0.7
+com/github/jaydroid1024/VBHelper/anyby/0.0.7/anyby-0.0.7-sources.jar
+com/github/jaydroid1024/VBHelper/anyby/0.0.7/anyby-0.0.7.aar
+com/github/jaydroid1024/VBHelper/anyby/0.0.7/anyby-0.0.7.module
+com/github/jaydroid1024/VBHelper/anyby/0.0.7/anyby-0.0.7.pom
+com/github/jaydroid1024/VBHelper/anyby/0.0.7/anyby-0.0.7.pom.md5
+com/github/jaydroid1024/VBHelper/anyby/0.0.7/anyby-0.0.7.pom.sha1
 
 ```
 
