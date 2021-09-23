@@ -21,11 +21,11 @@ class MainActivityWithDelegate : AppCompatActivity() {
 
     private val binding: ActivityMainBinding by vb()
 
-    private val binding2: ActivityMainBinding by vb(ActivityMainBinding::inflate)
+//    private val binding2: ActivityMainBinding by vb(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSupportActionBar(binding2.toolbar)
+        setSupportActionBar(binding.toolbar)
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)

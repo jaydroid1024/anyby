@@ -1,8 +1,7 @@
 package com.jay.vbhelper.simple.delegate_sp
 
 import android.content.SharedPreferences
-import com.jay.anyby.sp.int
-import com.jay.anyby.sp.string
+
 
 /**
  * @author jaydroid

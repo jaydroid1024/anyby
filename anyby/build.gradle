@@ -2,6 +2,7 @@ group = "anyby"
 apply from: "../common.gradle"
 
 dependencies {
-//    api(project(":vbhelper"))
-    api 'com.github.jaydroid1024.anyby:vbhelper:0.0.7'
+    api(project(":vbhelper"))
+//    api 'com.github.jaydroid1024.anyby:vbhelper:0.0.7'
+
 }
