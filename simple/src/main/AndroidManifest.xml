@@ -9,35 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AnyBy">
-
+        <activity
+            android:name=".delegate_api.ApiTestActivity"
+            android:exported="true" />
         <activity
             android:name=".normal_use_vb.MainActivity"
             android:exported="true"
             android:label="@string/app_name" />
-
-
         <activity
             android:name=".delagate_vb.MainActivityWithDelegate"
             android:exported="true"
             android:label="@string/app_name" />
-
-
         <activity
             android:name=".inflate_test.InflateTestActivity"
             android:exported="true"
             android:label="@string/app_name" />
-
         <activity
             android:name=".delegate_vm.ViewModelTestActivity"
             android:exported="true"
             android:label="@string/app_name" />
-
-
         <activity
             android:name=".delegate_sp.SPTestActivity"
             android:exported="true"
             android:label="@string/app_name" />
-
         <activity
             android:name=".SimpleActivity"
             android:exported="true"
@@ -48,8 +42,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jay.vbhelper.delegate.vb
 import com.jay.vbhelper.simple.databinding.ActivitySimpleBinding
 import com.jay.vbhelper.simple.delagate_vb.MainActivityWithDelegate
+import com.jay.vbhelper.simple.delegate_api.ApiTestActivity
 import com.jay.vbhelper.simple.delegate_sp.SPTestActivity
 import com.jay.vbhelper.simple.delegate_vm.ViewModelTestActivity
 import com.jay.vbhelper.simple.inflate_test.InflateTestActivity
@@ -44,6 +45,10 @@ class SimpleActivity : AppCompatActivity() {
 
     fun delegateVM(view: android.view.View) {
         startActivity(Intent(this, ViewModelTestActivity::class.java))
+    }
+
+    fun delegateApi(view: android.view.View) {
+        startActivity(Intent(this, ApiTestActivity::class.java))
     }
 
 }

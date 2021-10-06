@@ -21,7 +21,6 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/Theme.VBHelper.PopupOverlay" />
 
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -34,16 +33,17 @@
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="delegateVB"
-        android:text="delegate vb"
+        android:onClick="inflateTest"
+        android:text="inflate test"
         tools:ignore="HardcodedText,UsingOnClickInXml" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="inflateTest"
-        android:text="inflate test"
+        android:onClick="delegateVB"
+        android:text="delegate vb"
         tools:ignore="HardcodedText,UsingOnClickInXml" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
@@ -58,6 +58,13 @@
         android:layout_height="wrap_content"
         android:onClick="delegateVM"
         android:text="delegate vm"
+        tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="delegateApi"
+        android:text="delegate api"
         tools:ignore="HardcodedText,UsingOnClickInXml" />
 
 

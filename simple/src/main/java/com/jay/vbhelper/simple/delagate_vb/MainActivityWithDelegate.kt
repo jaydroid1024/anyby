@@ -21,7 +21,7 @@ class MainActivityWithDelegate : AppCompatActivity() {
 
     private val binding: ActivityMainBinding by vb()
 
-//    private val binding2: ActivityMainBinding by vb(ActivityMainBinding::inflate)
+    private val binding2: ActivityMainBinding by vb(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
